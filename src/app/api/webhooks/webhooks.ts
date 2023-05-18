@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const handleWebhooks = async (req: NextApiRequest, res: NextApiResponse) => {
 
-  res.setHeader('Access-Control-Allow-Origin', 'https://api-request-two.vercel.app/');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 
@@ -14,7 +14,7 @@ const handleWebhooks = async (req: NextApiRequest, res: NextApiResponse) => {
       console.log('Webhook request sent');
       res.status(200).json({ message: 'Webhook request sent' });
     } catch (error) {
-      console.error('Webhook request failed');
+      console.error('Webhook request failed wahhhhhhhh');
       console.error(error);
       res.status(500).json({ error: 'Webhook request failed' });
     }
