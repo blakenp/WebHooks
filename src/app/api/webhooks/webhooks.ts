@@ -2,11 +2,14 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 
 const handleWebhooks = async (req: NextApiRequest, res: NextApiResponse) => {
+
+  res.setHeader('Access-Control-Allow-Origin', 'https://api-request-two.vercel.app/');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
   if (req.method === 'POST') {
     try {
       // Make the API request to the webhook URL
-      const webhookUrl = 'https://webhooks-black.vercel.app/api/webhooks';
-      await axios.post(webhookUrl, req.body);
 
       console.log('Webhook request sent');
       res.status(200).json({ message: 'Webhook request sent' });
