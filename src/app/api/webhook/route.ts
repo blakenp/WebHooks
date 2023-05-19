@@ -1,5 +1,5 @@
-import { NextApiRequest } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
+import { middleware } from '@/app/middleware';
 import { comments } from '@/app/data/comments';
 
 // export default function handler(req: NextApiRequest, res: NextApiResponse) {
