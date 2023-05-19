@@ -2,21 +2,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { middleware } from '@/app/middleware';
 import { comments } from '@/app/data/comments';
 
-// export default function handler(req: NextApiRequest, res: NextApiResponse) {
-//     res.status(200).json(comments)
-// }
-
 interface Comment {
     comment: string;
 }
 
 export async function GET(request: NextRequest, response: NextResponse) {
-    middleware(request, response)
+    const middlewareResponse = middleware(request, response)
+    if (middlewareResponse) {
+        return middlewareResponse
+    }
     return NextResponse.json(comments);
 }
 
 export async function POST(request: NextRequest, response: NextResponse) {
-    middleware(request, response)
+    const middlewareResponse = middleware(request, response)
+    if (middlewareResponse) {
+        return middlewareResponse
+    }
 
     const { comment } = await request.json()
 
