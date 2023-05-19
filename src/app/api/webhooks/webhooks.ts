@@ -1,27 +1,17 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import axios from 'axios';
+import cors from '@/app/components/cors'; // Provide the path to your cors.ts file
 
-const handleWebhooks = async (req: NextApiRequest, res: NextApiResponse) => {
+const handleWebhooks = (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    // Make the API request to the webhook URL
 
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-
-  if (req.method === 'POST') {
-    try {
-      // Make the API request to the webhook URL
-
-      console.log('Webhook request sent');
-      res.status(200).json({ message: 'Webhook request sent' });
-    } catch (error) {
-      console.error('Webhook request failed wahhhhhhhh');
-      console.error(error);
-      res.status(500).json({ error: 'Webhook request failed' });
-    }
-  } else {
-    // Return an error for unsupported HTTP methods
-    res.status(405).json({ error: 'Method Not Allowed' });
+    console.log('Webhook request sent');
+    res.status(200).json({ message: 'Webhook request sent' });
+  } catch (error) {
+    console.error('Webhook request failed');
+    console.error(error);
+    res.status(500).json({ error: 'Webhook request failed' });
   }
 };
 
-export default handleWebhooks;
+export default cors(handleWebhooks);
