@@ -10,11 +10,14 @@ interface Comment {
     comment: string;
 }
 
-export async function GET() {
+export async function GET(request: NextRequest, response: NextResponse) {
+    middleware(request, response)
     return NextResponse.json(comments);
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest, response: NextResponse) {
+    middleware(request, response)
+
     const { comment } = await request.json()
 
     //const comment = request.body?.comment
