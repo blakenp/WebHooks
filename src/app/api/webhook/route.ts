@@ -1,12 +1,27 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
-import cors from '@/app/components/cors'; // Provide the path to your cors.ts file
 import { comments } from '@/app/data/comments';
 
 // export default function handler(req: NextApiRequest, res: NextApiResponse) {
 //     res.status(200).json(comments)
 // }
 
-export async function GET(request: NextRequest) {
+interface Comment {
+    comment: string;
+}
+
+export async function GET() {
     return NextResponse.json(comments);
+}
+
+export async function POST(request: Request) {
+    const { comment } = await request.json()
+
+    //const comment = request.body?.comment
+    const newComment = {
+        id: Date.now(),
+        text: comment
+    }
+    comments.push(newComment)
+    return NextResponse.json(newComment);
 }
