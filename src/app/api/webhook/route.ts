@@ -11,7 +11,7 @@ export async function GET() {
     return NextResponse.json(comments);
 }
 
-export async function POST(req: NextApiRequest) {
+export async function POST(req: NextRequest) {
     const comment = req.body.comment
     const newComment = {
         id: Date.now(),
