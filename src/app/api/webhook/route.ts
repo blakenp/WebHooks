@@ -7,6 +7,16 @@ import { comments } from '@/app/data/comments';
 //     res.status(200).json(comments)
 // }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     return NextResponse.json(comments);
+}
+
+export async function POST(req: NextApiRequest) {
+    const comment = req.body.comment
+    const newComment = {
+        id: Date.now(),
+        text: comment
+    }
+    comments.push(newComment)
+    return NextResponse.json(newComment);
 }
