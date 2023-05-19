@@ -1,3 +1,4 @@
+import { NextApiRequest } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
 import { comments } from '@/app/data/comments';
 
@@ -5,12 +6,18 @@ import { comments } from '@/app/data/comments';
 //     res.status(200).json(comments)
 // }
 
+interface Comment {
+    comment: string;
+}
+
 export async function GET() {
     return NextResponse.json(comments);
 }
 
 export async function POST(request: Request) {
-    const comment = request.body?.comment
+    const { comment } = await request.json()
+
+    //const comment = request.body?.comment
     const newComment = {
         id: Date.now(),
         text: comment
