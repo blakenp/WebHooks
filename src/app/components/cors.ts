@@ -1,23 +1,10 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from "next/server";
 
-const cors = (handler: NextApiHandler): NextApiHandler => (req: NextApiRequest, res: NextApiResponse) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+function setCORSHeaders(response: NextResponse | Response) {
+  response.headers.set('Access-Control-Allow-Origin', '*');
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  response.headers.set('Access-Control-Max-Age', '86400');
+}
 
-  if (req.method === 'OPTIONS') {
-    // Respond to preflight requests immediately
-    res.status(200).end();
-  } else if (req.method === 'POST') {
-    // Handle POST request logic here
-
-    console.log('Webhook request received');
-    res.status(200).json({ message: 'Webhook request received' });
-  } else {
-    // Return an error for unsupported HTTP methods
-    res.status(405).json({ error: 'Method Not Allowed' });
-  }
-};
-
-export default cors;
-
+export default setCORSHeaders
