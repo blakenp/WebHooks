@@ -3,11 +3,12 @@ import { middleware } from '@/app/middleware';
 import { comments } from '@/app/data/comments';
 
 export async function GET(request: NextRequest) {
-    // const middlewareResponse = middleware(request, response)
-    // if (middlewareResponse) {
-    //     return middlewareResponse
-    // }
-    return NextResponse.json(comments);
+    const response = NextResponse.json(comments);
+    response.headers.set('Access-Control-Allow-Origin', '*')
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    response.headers.set('Access-Control-Max-Age', '86400')
+    return response
 }
 
 export async function POST(req: NextRequest) {
@@ -22,7 +23,8 @@ export async function POST(req: NextRequest) {
     comments.push(newComment)
     const response = new Response('OK')
     response.headers.set('Access-Control-Allow-Origin', '*')
-    response.headers.set('Access-Control-Allow-Methods', 'POST')
-    response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    response.headers.set('Access-Control-Max-Age', '86400')
     return response
 }
