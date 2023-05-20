@@ -2,11 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { middleware } from '@/app/middleware';
 import { comments } from '@/app/data/comments';
 
-// interface Comment {
-//     comment: string;
-// }
-
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET(request: NextRequest) {
     // const middlewareResponse = middleware(request, response)
     // if (middlewareResponse) {
     //     return middlewareResponse
@@ -14,19 +10,15 @@ export async function GET(request: NextRequest, response: NextResponse) {
     return NextResponse.json(comments);
 }
 
-// export async function POST(request: NextRequest, response: NextResponse) {
-//     const middlewareResponse = middleware(request, response)
-//     if (middlewareResponse) {
-//         return middlewareResponse
-//     }
+export async function POST(req: NextRequest) {
 
-//     const { comment } = await request.json()
+    const body = await req.json()
 
-//     //const comment = request.body?.comment
-//     const newComment = {
-//         id: Date.now(),
-//         text: comment
-//     }
-//     comments.push(newComment)
-//     return NextResponse.json(newComment);
-// }
+    //const comment = request.body?.comment
+    const newComment = {
+        id: Date.now(),
+        text: body.comment
+    }
+    comments.push(newComment)
+    return new Response('OK')
+}
