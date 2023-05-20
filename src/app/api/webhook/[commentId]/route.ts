@@ -27,3 +27,9 @@ export async function DELETE(req: NextRequest, { params: { commentId } }: Params
   setCORSHeaders(response);
   return response;
 }
+
+export async function OPTIONS() {
+  const response = new Response('');
+  setCORSHeaders(response)
+  return response;
+}
