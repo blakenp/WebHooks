@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { middleware } from '@/app/middleware';
 import { comments } from '@/app/data/comments';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     const response = NextResponse.json(comments);
     response.headers.set('Access-Control-Allow-Origin', '*')
     response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
         text: body.comment
     }
     comments.push(newComment)
-    const response = new Response('OK')
+    const response = NextResponse.next()
     response.headers.set('Access-Control-Allow-Origin', '*')
     response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
     response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
