@@ -20,5 +20,9 @@ export async function POST(req: NextRequest) {
         text: body.comment
     }
     comments.push(newComment)
-    return new Response('OK')
+    const response = new Response('OK')
+    response.headers.set('Access-Control-Allow-Origin', '*')
+    response.headers.set('Access-Control-Allow-Methods', 'POST')
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
+    return response
 }
