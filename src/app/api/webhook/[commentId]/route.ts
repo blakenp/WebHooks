@@ -19,9 +19,7 @@ export async function GET(req: NextRequest, { params: { commentId } }: Params) {
 export async function DELETE(req: NextRequest, { params: { commentId } }: Params, res: NextResponse) {
   const commentIndex = comments.find(comment => comment.id === parseInt(commentId));
 
-  if (typeof commentIndex === 'number' && commentIndex >= 0) {
-    comments.splice(commentIndex, 1);
-  }
+  comments.splice(commentIndex as any, 1);
 
   const response = NextResponse.json({ message: 'Comment deleted'});
   setCORSHeaders(response);
