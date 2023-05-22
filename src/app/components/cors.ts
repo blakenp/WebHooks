@@ -1,10 +1,20 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 
 function setCORSHeaders(response: NextResponse | Response) {
-  response.headers.set('Access-Control-Allow-Origin', 'https://api-request-two.vercel.app');
-  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  response.headers.set('Access-Control-Max-Age', '86400');
+  const allowedOrigins = ['http://localhost:3000', 'https://api-request-two.vercel.app'];
+
+  const origin = response.headers.get('origin') || '';
+  if (allowedOrigins.includes(origin)) {
+    response.headers.set('access-control-allow-origin', origin);
+    response.headers.set(
+      'access-control-allow-methods',
+      'GET, POST, PUT, DELETE, OPTIONS'
+    );
+    response.headers.set(
+      'access-control-allow-headers',
+      'Content-Type, Authorization'
+    );
+  }
 }
 
-export default setCORSHeaders
+export default setCORSHeaders;
