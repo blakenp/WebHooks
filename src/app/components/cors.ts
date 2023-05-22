@@ -1,21 +1,10 @@
 import { NextResponse } from 'next/server'
 
 function setCORSHeaders(response: NextResponse | Response) {
-  const allowedOrigins = ['https://api-request-two.vercel.app', 'http://localhost:3000']
-
-  const origin = response.headers.get('Origin') as string
-  //if (allowedOrigins.includes(origin || '')) {
-    response.headers.set('Access-Control-Allow-Origin', origin)
-    response.headers.set(
-      'Access-Control-Allow-Methods',
-      'GET, PUT, POST, DELETE, HEAD, OPTIONS'
-    )
-    response.headers.set(
-      'Access-Control-Allow-Headers',
-      'Content-Type, Authorization'
-    )
-    response.headers.set('Access-Control-Allow-Credentials', 'true')
-  //}
+  response.headers.set('Access-Control-Allow-Origin', 'https://api-request-two.vercel.app');
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  response.headers.set('Access-Control-Max-Age', '86400');
 }
 
 export default setCORSHeaders
