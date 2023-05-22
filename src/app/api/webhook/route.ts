@@ -5,7 +5,10 @@ import { comments } from '@/app/data/comments';
 export async function GET() {
   const response = NextResponse.json(comments);
   setCORSHeaders(response)
-  return response;
+  if (comments.length != 0) {
+    return response;
+  }
+  return
 }
 
 export async function POST(req: NextRequest) {
