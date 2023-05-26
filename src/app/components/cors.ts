@@ -13,11 +13,19 @@ function setCORSHeaders(response: NextResponse | Response) {
 
   requestHeaders.append('Origin', 'https://api-request-two.vercel.app')
   requestHeaders.append('Origin', 'http://localhost:3000')
+
+  allowedOrigins.forEach(origin => {
+    requestHeaders.append('Access-Control-Allow-Origin', origin);
+  });
+
   const origin = requestHeaders.get('Origin')
   //const original = origin?.split(',').map((v) => v.trimStart())
 
   if (origin && allowSpecificDomain(origin, allowedOrigins)) {
-    response.headers.set('Access-Control-Allow-Origin', allowedOrigins.join(', '));
+    response.headers.set('Access-Control-Allow-Origin', origin);
+  } else {
+    // If the requested origin is not allowed, remove the header
+    response.headers.delete('Access-Control-Allow-Origin');
   }
 
   response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
