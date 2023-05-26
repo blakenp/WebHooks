@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server'
+import { headers } from 'next/headers';
 
-const allowedOrigins = ['https://api-request-two.vercel.app', 'http://localhost:3000', 'https://example.com']
+const allowedOrigins = ['https://api-request-two.vercel.app', 'http://localhost:3000']
 
 function setCORSHeaders(response: NextResponse | Response) {
-  const origin = response.headers.get('Origin')
+  const requestHeaders = new Headers(response.headers)
+  const origin = requestHeaders.get('origin')
 
   if (origin && allowedOrigins.includes(origin)) {
     response.headers.set('Access-Control-Allow-Origin', origin);
