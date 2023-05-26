@@ -24,10 +24,10 @@ function setCORSHeaders(response: NextResponse | Response) {
   //   response.headers.set('Vary', 'Origin');
   // }
 
-  if (origin) {
-    response.headers.set('Access-Control-Allow-Origin', origin);
-    response.headers.set('Vary', 'Origin');
-  }
+  //if (origin) {
+  response.headers.set('Access-Control-Allow-Origin', origin as any);
+  response.headers.set('Vary', 'Origin');
+  //}
 
   response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
