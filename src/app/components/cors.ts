@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server'
 import { headers } from 'next/headers';
 
-const allowedOrigins = ['https://api-request-two.vercel.app', 'http://localhost:3000'];
+const allowedOrigins = ['https://api-request-two.vercel.app', 'http://localhost:3000']
 
 function setCORSHeaders(response: NextResponse | Response) {
-  const requestHeaders = new Headers(response.headers);
-  const origin = allowedOrigins.find((allowedOrigin) =>
-    requestHeaders.get('Origin') === allowedOrigin
-  );
+  const requestHeaders = new Headers(response.headers)
+  const origin = requestHeaders.get('allowedOrigins')
 
-  if (origin) {
+  if (origin && allowedOrigins.includes(origin)) {
     response.headers.set('Access-Control-Allow-Origin', origin);
   }
 
@@ -18,7 +16,7 @@ function setCORSHeaders(response: NextResponse | Response) {
   response.headers.set('Access-Control-Max-Age', '86400');
 }
 
-export default setCORSHeaders;
+export default setCORSHeaders
 
 
 
