@@ -11,7 +11,7 @@ function allowSpecificDomain(domains: string, allowedDomains: string[]): boolean
 function setCORSHeaders(response: NextResponse | Response) {
   const requestHeaders = new Headers(response.headers)
 
-  const origin = requestHeaders.get('Origin') || requestHeaders.get('Referer');
+  const origin = requestHeaders.get('Origin')
 
   // requestHeaders.append('Origin', 'https://api-request-two.vercel.app')
   // requestHeaders.append('Origin', 'http://localhost:3000')
@@ -24,7 +24,7 @@ function setCORSHeaders(response: NextResponse | Response) {
   //   response.headers.set('Vary', 'Origin');
   // }
 
-  if (origin && allowedOrigins.includes(origin)) {
+  if (origin) {
     response.headers.set('Access-Control-Allow-Origin', origin);
     response.headers.set('Vary', 'Origin');
   }
