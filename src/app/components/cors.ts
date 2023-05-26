@@ -5,7 +5,10 @@ const allowedOrigins = ['https://api-request-two.vercel.app', 'http://localhost:
 
 function setCORSHeaders(response: NextResponse | Response) {
   const requestHeaders = new Headers(response.headers)
-  const origin = requestHeaders.get('allowedOrigins')
+
+  requestHeaders.append('Origin', 'https://api-request-two.vercel.app')
+  requestHeaders.append('Origin', 'http://localhost:3000')
+  const origin = requestHeaders.get('Origin')
 
   if (origin && allowedOrigins.includes(origin)) {
     response.headers.set('Access-Control-Allow-Origin', origin);
