@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-const allowedOrigins = ['https://api-request-two.vercel.app', 'http://localhost:3000']
+const allowedOrigins = ['https://api-request-two.vercel.app', 'http://localhost:3000', 'https://example.com']
 
 function setCORSHeaders(response: NextResponse | Response) {
   const origin = response.headers.get('Origin')
