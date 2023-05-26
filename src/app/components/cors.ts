@@ -17,7 +17,7 @@ function setCORSHeaders(response: NextResponse | Response) {
   //const original = origin?.split(',').map((v) => v.trimStart())
 
   if (origin && allowSpecificDomain(origin, allowedOrigins)) {
-    response.headers.set('Access-Control-Allow-Origin', origin);
+    response.headers.set('Access-Control-Allow-Origin', allowedOrigins.join(', '));
   }
 
   response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
