@@ -8,26 +8,19 @@ function allowSpecificDomain(domains: string, allowedDomains: string[]): boolean
   return domainArray.some(domain => allowedDomains.includes(domain));
 }
 
-function setCORSHeaders(response: NextResponse | Response) {
-  const requestHeaders = new Headers(response.headers)
+function setCORSHeaders(response: NextResponse | Response, request: NextRequest) {
+  const requestHeaders = new Headers(request.headers)
+
+  requestHeaders.append('Origin', 'https://api-request-two.vercel.app')
+  requestHeaders.append('Origin', 'http://localhost:3000')
 
   const origin = requestHeaders.get('Origin')
-
-  // requestHeaders.append('Origin', 'https://api-request-two.vercel.app')
-  // requestHeaders.append('Origin', 'http://localhost:3000')
-
-  // const origin = requestHeaders.get('Origin')
   //const original = origin?.split(',').map((v) => v.trimStart())
 
-  // if (origin && allowSpecificDomain(origin, allowedOrigins)) {
-  //   response.headers.set('Access-Control-Allow-Origin', origin);
-  //   response.headers.set('Vary', 'Origin');
-  // }
-
-  //if (origin) {
-  response.headers.set('Access-Control-Allow-Origin', origin as any);
-  response.headers.set('Vary', 'Origin');
-  //}
+  if (origin && allowedOrigins.includes(origin)) {
+      response.headers.set('Access-Control-Allow-Origin', origin);
+      response.headers.set('Vary', 'Origin');
+  }
 
   response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
