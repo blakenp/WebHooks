@@ -2,11 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const allowedOrigins = ['https://api-request-two.vercel.app', 'http://localhost:3000']
 
-function allowSpecificDomain(domains: string, allowedDomains: string[]): boolean {
-  const domainArray = domains.split(',').map(domain => domain.trim());
-  return domainArray.some(domain => allowedDomains.includes(domain));
-}
-
 function setCORSHeaders(response: NextResponse | Response, request: NextRequest) {
   const requestHeaders = new Headers(request.headers)
   const origin = requestHeaders.get('origin')
