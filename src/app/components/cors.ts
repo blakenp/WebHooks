@@ -17,7 +17,7 @@ function setCORSHeaders(response: NextResponse | Response, request: NextRequest)
   const origin = requestHeaders.get('origin')
   //const original = origin?.split(',').map((v) => v.trimStart())
 
-  if (origin && allowSpecificDomain(origin, allowedOrigins)) {
+  if (origin && allowedOrigins.includes(origin)) {
     response.headers.set('Access-Control-Allow-Origin', origin);
   }
 
