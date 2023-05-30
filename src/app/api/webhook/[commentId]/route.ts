@@ -8,7 +8,7 @@ type Params = {
   }
 }
 
-export async function GET(req: NextRequest, commentId: number) {
+export async function GET(req: NextRequest, { params: { commentId } }: any) {
   const comment = comments.find(comment => comment.id === commentId)
 
   const response = NextResponse.json(comment)
