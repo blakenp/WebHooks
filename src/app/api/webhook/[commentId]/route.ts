@@ -9,7 +9,7 @@ type Params = {
 }
 
 export async function GET(req: NextRequest, { params: { commentId } }: Params) {
-  const comment = comments.findIndex(comment => comment.id === parseInt(commentId))
+  const comment = comments.find(comment => comment.id === parseInt(commentId))
 
   const response = NextResponse.json(comment)
   setCORSHeaders(response, req)
