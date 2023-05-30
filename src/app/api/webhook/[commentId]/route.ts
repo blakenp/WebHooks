@@ -30,7 +30,7 @@ export async function PUT(req: NextRequest, { params: { commentId } }: Params) {
     const body = await req.json();
     const commentIndex = comments.findIndex(comment => comment.id === parseInt(commentId))
     const updatedComment = {
-        id: commentIndex,
+        id: comments[commentIndex].id,
         text: body.comment
     }
     comments[commentIndex] = updatedComment
