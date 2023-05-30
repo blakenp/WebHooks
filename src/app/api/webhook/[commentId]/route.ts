@@ -8,8 +8,8 @@ type Params = {
   }
 }
 
-export async function GET(req: NextRequest, { params: { commentId } }: any) {
-  const comment = comments.find(comment => comment.id === commentId)
+export async function GET(req: NextRequest, { params: { commentId } }: Params) {
+  const comment = comments.find(comment => comment.id === parseInt(commentId))
 
   const response = NextResponse.json(comment)
   setCORSHeaders(response, req)
