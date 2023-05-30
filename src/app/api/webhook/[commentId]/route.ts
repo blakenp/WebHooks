@@ -29,7 +29,10 @@ export async function DELETE(req: NextRequest, { params: { commentId } }: Params
 export async function PUT(req: NextRequest, { params: { commentId } }: Params) {
     const body = await req.json();
     const commentIndex = comments.findIndex(comment => comment.id === parseInt(commentId))
-    const updatedComment = body.comment
+    const updatedComment = {
+        id: commentIndex,
+        text: body.comment
+    }
     comments[commentIndex] = updatedComment
 
     const response = NextResponse.json({message: 'Comment updated'})
