@@ -2,22 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import setCORSHeaders from '@/app/components/cors';
 import { comments } from '@/app/data/comments';
 
-type Params = {
-  params: {
-    commentId: string
-  }
-}
+// type Params = {
+//   params: {
+//     commentId: number
+//   }
+// }
 
-export async function GET(req: NextRequest, { params: { commentId } }: Params) {
-  const comment = comments.findIndex(comment => comment.id === parseInt(commentId))
+export async function GET(req: NextRequest, { params: { commentId } }: any) {
+  const comment = comments.findIndex(comment => comment.id === commentId)
 
   const response = NextResponse.json(comment)
   setCORSHeaders(response, req)
   return response
 }
 
-export async function DELETE(req: NextRequest, { params: { commentId } }: Params) {
-  const commentIndex = comments.findIndex(comment => comment.id === parseInt(commentId))
+export async function DELETE(req: NextRequest, { params: { commentId } }: any) {
+  const commentIndex = comments.findIndex(comment => comment.id === commentId)
 
   comments.splice(commentIndex, 1)
 
@@ -26,11 +26,11 @@ export async function DELETE(req: NextRequest, { params: { commentId } }: Params
   return response
 }
 
-export async function PUT(req: NextRequest, { params: { commentId } }: Params) {
+export async function PUT(req: NextRequest, { params: { commentId } }: any) {
     const body = await req.json();
-    const commentIndex = comments.findIndex(comment => comment.id === parseInt(commentId))
+    const commentIndex = comments.findIndex(comment => comment.id === commentId)
     const updatedComment = {
-        id: comments[commentIndex].id,
+        id: commentId,
         text: body.comment
     }
     comments[commentIndex] = updatedComment
