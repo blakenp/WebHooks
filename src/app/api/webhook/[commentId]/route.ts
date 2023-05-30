@@ -9,25 +9,36 @@ type Params = {
 }
 
 export async function GET(req: NextRequest, { params: { commentId } }: Params) {
-  const comment = comments.findIndex(comment => comment.id === parseInt(commentId));
+  const comment = comments.findIndex(comment => comment.id === parseInt(commentId))
 
-  const response = NextResponse.json(comment);
-  setCORSHeaders(response, req);
-  return response;
+  const response = NextResponse.json(comment)
+  setCORSHeaders(response, req)
+  return response
 }
 
-export async function DELETE(req: NextRequest, { params: { commentId } }: Params, res: NextResponse) {
-  const commentIndex = comments.findIndex(comment => comment.id === parseInt(commentId));
+export async function DELETE(req: NextRequest, { params: { commentId } }: Params) {
+  const commentIndex = comments.findIndex(comment => comment.id === parseInt(commentId))
 
-  comments.splice(commentIndex, 1);
+  comments.splice(commentIndex, 1)
 
-  const response = NextResponse.json({ message: 'Comment deleted'});
-  setCORSHeaders(response, req);
-  return response;
+  const response = NextResponse.json({ message: 'Comment deleted'})
+  setCORSHeaders(response, req)
+  return response
+}
+
+export async function PUT(req: NextRequest, { params: { commentId } }: Params) {
+    const body = await req.json();
+    const commentIndex = comments.findIndex(comment => comment.id === parseInt(commentId))
+    const updatedComment = body.comment
+    comments[commentIndex] = updatedComment
+
+    const response = NextResponse.json({message: 'Comment updated'})
+    setCORSHeaders(response, req)
+    return response
 }
 
 export async function OPTIONS(req: NextRequest) {
-  const response = new Response('');
+  const response = new Response('')
   setCORSHeaders(response, req)
-  return response;
+  return response
 }

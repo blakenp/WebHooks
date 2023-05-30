@@ -3,25 +3,25 @@ import setCORSHeaders from '@/app/components/cors';
 import { comments } from '@/app/data/comments';
 
 export async function GET(req: NextRequest) {
-    const response = NextResponse.json(comments);
+    const response = NextResponse.json(comments)
     setCORSHeaders(response, req)
     return response
 }
 
 export async function POST(req: NextRequest) {
-    const body = await req.json();
+    const body = await req.json()
     const newComment = {
         id: Date.now(),
         text: body.comment
-    };
-    comments.push(newComment);
-    const response = new Response('OK');
+    }
+    comments.push(newComment)
+    const response = new Response('OK')
     setCORSHeaders(response, req)
-    return response;
+    return response
 }
 
 export async function OPTIONS(req: NextRequest) {
-    const response = new Response('');
+    const response = new Response('')
     setCORSHeaders(response, req)
-    return response;
+    return response
 }
