@@ -4,12 +4,12 @@ import { comments } from '@/app/data/comments';
 
 type Params = {
   params: {
-    commentId: string
+    commentId: number
   }
 }
 
-export async function GET(req: NextRequest, params: number) {
-  const comment = comments.find(comment => comment.id === params)
+export async function GET(req: NextRequest, { params: { commentId } }: Params) {
+  const comment = comments.find(comment => comment.id === commentId)
 
   const response = NextResponse.json(comment)
   setCORSHeaders(response, req)
@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, params: number) {
 }
 
 export async function DELETE(req: NextRequest, { params: { commentId } }: Params) {
-  const commentIndex = comments.findIndex(comment => comment.id === parseInt(commentId))
+  const commentIndex = comments.findIndex(comment => comment.id === commentId)
 
   comments.splice(commentIndex, 1)
 
@@ -28,9 +28,9 @@ export async function DELETE(req: NextRequest, { params: { commentId } }: Params
 
 export async function PUT(req: NextRequest, { params: { commentId } }: Params) {
     const body = await req.json();
-    const commentIndex = comments.findIndex(comment => comment.id === parseInt(commentId))
+    const commentIndex = comments.findIndex(comment => comment.id === commentId)
     const updatedComment = {
-        id: parseInt(commentId),
+        id: commentId,
         text: body.comment
     }
     comments[commentIndex] = updatedComment
