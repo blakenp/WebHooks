@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
         text: body.comment
     }
     comments.push(newComment)
-    const response = new Response('OK')
+    const response = NextResponse.json({message: "Comment submitted"})
     setCORSHeaders(response, req)
     return response
 }
